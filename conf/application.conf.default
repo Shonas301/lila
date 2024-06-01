@@ -11,3 +11,4 @@ include "version"
 user.password.bpass.secret = "9qEYN0ThHer1KWLNekA76Q=="
 
 # override additional values from base.conf here
+play.server.netty.transport = "jdk"
