@@ -43,6 +43,7 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
     if (hovering) return makeShapesFromUci(color, hovering.uci, 'green');
     const hint = ctrl.practice.hinting();
     if (hint) {
+      console.log(color, hint);
       if (hint.mode === 'move') return makeShapesFromUci(color, hint.uci, 'paleBlue');
       else
         return [
@@ -84,6 +85,7 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
       shapes = shapes.concat(makeShapesFromUci(rcolor, nEval.best, 'paleGreen'));
     if (!hovering && instance.search.multiPv) {
       const nextBest = instance.enabled() && nCeval ? nCeval.pvs[0].moves[0] : ctrl.nextNodeBest();
+      console.log(color, nextBest);
       if (nextBest) shapes = shapes.concat(makeShapesFromUci(color, nextBest, 'paleBlue'));
       if (
         instance.enabled() &&
@@ -111,6 +113,7 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
     shapes = shapes.concat(makeShapesFromUci(rcolor, pv0.moves[0], pv1s.length > 0 ? 'paleRed' : 'red'));
 
     pv1s.forEach(function (pv) {
+      console.log(pv, pv0);
       const shift = winningChances.povDiff(rcolor, pv, pv0);
       if (shift >= 0 && shift < 0.2) {
         shapes = shapes.concat(

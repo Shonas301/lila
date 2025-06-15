@@ -19,6 +19,6 @@ if [[ " $* " != *" --no-corepack "* ]]; then
   fi
 fi
 
-pnpm install --silent --ignore-workspace
+pnpm install --silent #--ignore-workspace
 
 node --experimental-strip-types --no-warnings src/main.ts "$@"

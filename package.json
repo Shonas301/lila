@@ -25,18 +25,18 @@
   "dependencies": {
     "@types/lichess": "workspace:*",
     "@types/web": "^0.0.201",
-    "@typescript-eslint/eslint-plugin": "^8.23.0",
-    "@typescript-eslint/parser": "^8.23.0",
+    "@typescript-eslint/eslint-plugin": "^8.34.0",
+    "@typescript-eslint/parser": "^8.34.0",
     "ab": "github:lichess-org/ab-stub",
-    "chessground": "^9.1.1",
+    "chessground": "github:Shonas301/chessground#add-gradient-arrow",
     "chessops": "^0.14.2",
-    "eslint": "^9.20.0",
-    "lint-staged": "^15.4.3",
+    "eslint": "^9.29.0",
+    "lint-staged": "^15.5.2",
     "onchange": "^7.1.0",
-    "prettier": "^3.4.2",
+    "prettier": "^3.5.3",
     "snabbdom": "3.5.1",
-    "typescript": "^5.7.3",
-    "vitest": "^3.0.5"
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.3"
   },
   "//": [
     "snabbdom pinned to 3.5.1 until https://github.com/snabbdom/snabbdom/issues/1114 is resolved",

@@ -96,6 +96,7 @@ export default class AnalyseCtrl {
   showGauge = storedBooleanProp('analyse.show-gauge', true);
   showComputer = storedBooleanProp('analyse.show-computer', true);
   showMoveAnnotation = storedBooleanProp('analyse.show-move-annotation', true);
+  tableBaseArrowsProp = storedBooleanProp('analyse.show-tablebase-arrows', true);
   keyboardHelp: boolean = location.hash === '#keyboard';
   threatMode: Prop<boolean> = prop(false);
   treeView: TreeView;
@@ -821,7 +822,12 @@ export default class AnalyseCtrl {
   };
 
   private resetAutoShapes() {
-    if (this.showAutoShapes() || this.variationArrowsProp() || this.showMoveAnnotation())
+    if (
+      this.showAutoShapes() ||
+      this.variationArrowsProp() ||
+      this.showMoveAnnotation() ||
+      this.tableBaseArrowsProp()
+    )
       this.setAutoShapes();
     else this.chessground && this.chessground.setAutoShapes([]);
   }
@@ -846,6 +852,12 @@ export default class AnalyseCtrl {
 
   toggleVariationArrows = (v?: boolean): void => {
     this.variationArrowsProp(v ?? !this.variationArrowsProp());
+    this.resetAutoShapes();
+  };
+
+  toggleTablebaseArrows = (v?: boolean): void => {
+    console.log('toggleTablebaseArrows', v, this.tableBaseArrowsProp());
+    this.tableBaseArrowsProp(v ?? !this.tableBaseArrowsProp());
     this.resetAutoShapes();
   };
 
@@ -952,7 +964,7 @@ export default class AnalyseCtrl {
         !!(
           this.ceval?.isCacheable &&
           this.canEvalGet() &&
-          // if not in study, only put decent opening moves
+          // if not in study, only put decent opening moves in the cloud
           (this.opts.study || (!this.node.ceval!.mate && Math.abs(this.node.ceval!.cp!) < 99))
         ),
       getNode: () => this.node,
