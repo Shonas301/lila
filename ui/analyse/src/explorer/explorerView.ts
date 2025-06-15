@@ -17,6 +17,7 @@ import {
 } from './interfaces';
 import ExplorerCtrl, { MAX_DEPTH } from './explorerCtrl';
 import { showTablebase } from './tablebaseView';
+import { tablebaseArrows } from './tablebaseArrows';
 
 function resultBar(move: OpeningMoveStats): VNode {
   const sum = move.white + move.draws + move.black;
@@ -242,8 +243,14 @@ export const clearLastShow = () => {
 };
 
 function show(ctrl: AnalyseCtrl): MaybeVNode {
+  console.log('Showing explorer data');
   const data = ctrl.explorer.current();
   if (data && isOpening(data)) {
+    if (ctrl.chessground && ctrl.explorer.config.data.showTablebaseArrows()) {
+      ctrl.chessground.setAutoShapes(
+        tablebaseArrows(data.moves, ctrl.explorer.config.data.maxTablebaseLines()),
+      );
+    }
     const moveTable = showMoveTable(ctrl, data),
       recentTable = showGameTable(ctrl, data.fen, i18n.site.recentGames, data.recentGames || []),
       topTable = showGameTable(ctrl, data.fen, i18n.site.topGames, data.topGames || []);
@@ -257,6 +264,13 @@ function show(ctrl: AnalyseCtrl): MaybeVNode {
       ]);
     else lastShow = showEmpty(ctrl, data);
   } else if (data && isTablebase(data)) {
+    // Conditionally set tablebase arrows based on toggle
+    console.log('Setting tablebase arrows for moves:', data.moves);
+    if (ctrl.chessground && ctrl.explorer.config.data.showTablebaseArrows()) {
+      ctrl.chessground.setAutoShapes(tablebaseArrows(data.moves));
+    } else if (ctrl.chessground && typeof ctrl.chessground.setAutoShapes === 'function') {
+      ctrl.chessground.setAutoShapes([]); // clear arrows if toggle is off
+    }
     const row = (category: TablebaseCategory, title: string, tooltip?: string) =>
       showTablebase(
         ctrl,
