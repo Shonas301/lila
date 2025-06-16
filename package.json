@@ -25,7 +25,10 @@
   "pnpm": {
     "onlyBuiltDependencies": [
       "esbuild"
-    ]
+    ],
+    "overrides": {
+      "@lichess-org/chessground": "link:../chessground"
+    }
   },
   "dependencies": {
     "@lichess-org/chessground": "github:Shonas301/chessground#add-gradient-arrow",

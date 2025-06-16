@@ -4,13 +4,16 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  '@lichess-org/chessground': link:../chessground
+
 importers:
 
   .:
     dependencies:
       '@lichess-org/chessground':
-        specifier: github:Shonas301/chessground#add-gradient-arrow
-        version: https://codeload.github.com/Shonas301/chessground/tar.gz/7cee33fde1b6efaae43dd204f78b84ea69acb4bd
+        specifier: link:../chessground
+        version: link:../chessground
       '@lichess-org/pgn-viewer':
         specifier: 2.4.7
         version: 2.4.7
@@ -821,10 +824,6 @@ packages:
 
   '@kurkle/color@0.3.4':
     resolution: {integrity: sha512-M5UknZPHRu3DEDWoipU6sE8PdkZ6Z/S+v4dD+Ke8IaNlpdSQah50lz1KtcFBa2vsdOnwbbnxJwVM4wty6udA5w==}
-
-  '@lichess-org/chessground@https://codeload.github.com/Shonas301/chessground/tar.gz/7cee33fde1b6efaae43dd204f78b84ea69acb4bd':
-    resolution: {tarball: https://codeload.github.com/Shonas301/chessground/tar.gz/7cee33fde1b6efaae43dd204f78b84ea69acb4bd}
-    version: 9.2.3
 
   '@lichess-org/pgn-viewer@2.4.7':
     resolution: {integrity: sha512-ybq/ZXvfcVxR+pasCBdQ0BkJGgDdpW84KioexJyD00oT2ERyTpnwMBxDaqL6/3uv1WPUPfBPwbaeaDcknqlvTg==}
@@ -2696,8 +2695,6 @@ snapshots:
   '@juggle/resize-observer@3.4.0': {}
 
   '@kurkle/color@0.3.4': {}
-
-  '@lichess-org/chessground@https://codeload.github.com/Shonas301/chessground/tar.gz/7cee33fde1b6efaae43dd204f78b84ea69acb4bd': {}
 
   '@lichess-org/pgn-viewer@2.4.7':
     dependencies:
