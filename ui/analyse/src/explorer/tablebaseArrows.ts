@@ -7,11 +7,12 @@ import { SquareName } from 'chessops';
 
 export function getPerecentages(move: TablebaseMoveStats | OpeningMoveStats): [number, number, number] {
   console.log('Calculating percentages for move:', move);
-  const one_million = 1000000;
   if ('white' in move && 'black' in move) {
     // For OpeningMoveStats
-    console.error(move.white / one_million);
-    return [move.white / one_million, move.draws / one_million, move.black / one_million];
+    const total_plays = move.white + move.draws + move.black;
+    return [move.white / total_plays, move.draws / total_plays, move.black / total_plays].map(
+      (num: number) => num * 100,
+    ) as [number, number, number];
   } else {
     return [33, 33, 33];
   }
@@ -37,6 +38,7 @@ export function tablebaseArrows(
           colors: colors,
           percentages: getPerecentages(move),
         },
+        hilite: true,
       },
       // label: move.dtm !== null ? { text: String(Math.abs(move.dtm)) } : undefined,
     }))
