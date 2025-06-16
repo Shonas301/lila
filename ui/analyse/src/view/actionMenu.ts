@@ -225,6 +225,16 @@ export function view(ctrl: AnalyseCtrl): VNode {
         },
         ctrl,
       ),
+    ctrlToggle(
+      {
+        name: 'Show Tablebase Arrows',
+        title: 'Display arrows for tablebase moves',
+        id: 'tableBaseArrows',
+        checked: ctrl.tableBaseArrowsProp(),
+        change: ctrl.toggleTablebaseArrows,
+      },
+      ctrl,
+    ),
   ];
 
   return h('div.action-menu', [

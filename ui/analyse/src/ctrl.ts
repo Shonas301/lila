@@ -98,6 +98,7 @@ export default class AnalyseCtrl {
   showGauge = storedBooleanProp('analyse.show-gauge', true);
   showComputer = storedBooleanProp('analyse.show-computer', true);
   showMoveAnnotation = storedBooleanProp('analyse.show-move-annotation', true);
+  tableBaseArrowsProp = storedBooleanProp('analyse.show-tablebase-arrows', true);
   keyboardHelp: boolean = location.hash === '#keyboard';
   threatMode: Prop<boolean> = prop(false);
   treeView: TreeView;
@@ -836,7 +837,12 @@ export default class AnalyseCtrl {
   };
 
   private resetAutoShapes() {
-    if (this.showAutoShapes() || this.variationArrowsProp() || this.showMoveAnnotation())
+    if (
+      this.showAutoShapes() ||
+      this.variationArrowsProp() ||
+      this.showMoveAnnotation() ||
+      this.toggleTablebaseArrows()
+    )
       this.setAutoShapes();
     else this.chessground && this.chessground.setAutoShapes([]);
   }
@@ -853,6 +859,12 @@ export default class AnalyseCtrl {
       this.node.children.filter(x => !x.comp || this.showComputer()).length > 1
     );
   }
+
+  toggleTablebaseArrows = (v?: boolean): void => {
+    console.log('toggleTablebaseArrows', v, this.tableBaseArrowsProp());
+    this.tableBaseArrowsProp(v ?? !this.tableBaseArrowsProp());
+    this.resetAutoShapes();
+  };
 
   toggleAutoShapes = (v: boolean): void => {
     this.showAutoShapes(v);

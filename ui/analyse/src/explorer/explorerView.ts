@@ -17,6 +17,7 @@ import {
 } from './interfaces';
 import ExplorerCtrl, { MAX_DEPTH } from './explorerCtrl';
 import { showTablebase } from './tablebaseView';
+import { tablebaseArrows } from './tablebaseArrows';
 
 function resultBar(move: OpeningMoveStats): VNode {
   const sum = move.white + move.draws + move.black;
@@ -244,6 +245,11 @@ export const clearLastShow = () => {
 function show(ctrl: AnalyseCtrl): MaybeVNode {
   const data = ctrl.explorer.current();
   if (data && isOpening(data)) {
+    if (ctrl.chessground && ctrl.explorer.config.data.showTablebaseArrows()) {
+      ctrl.chessground.setAutoShapes(
+        tablebaseArrows(data.moves, ctrl.explorer.config.data.maxTablebaseLines()),
+      );
+    }
     const moveTable = showMoveTable(ctrl, data),
       recentTable = showGameTable(ctrl, data.fen, i18n.site.recentGames, data.recentGames || []),
       topTable = showGameTable(ctrl, data.fen, i18n.site.topGames, data.topGames || []);

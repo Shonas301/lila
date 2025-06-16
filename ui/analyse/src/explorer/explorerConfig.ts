@@ -10,6 +10,7 @@ import perfIcons from 'lib/game/perfIcons';
 import { ucfirst } from './explorerUtil';
 import { opposite } from '@lichess-org/chessground/util';
 import { userComplete } from 'lib/view/userComplete';
+import { rangeConfig } from 'lib/view/controls';
 
 const allSpeeds: ExplorerSpeed[] = ['ultraBullet', 'bullet', 'blitz', 'rapid', 'classical', 'correspondence'];
 const allModes: ExplorerMode[] = ['casual', 'rated'];
@@ -39,6 +40,8 @@ export interface ExplorerConfigData {
   };
   color: Prop<Color>;
   byDb(): ByDbSetting;
+  showTablebaseArrows: Prop<boolean>;
+  maxTablebaseLines: Prop<number>;
 }
 
 export class ExplorerConfigCtrl {
@@ -87,6 +90,8 @@ export class ExplorerConfigCtrl {
       byDb() {
         return this.byDbData[this.db()] || this.byDbData.lichess;
       },
+      showTablebaseArrows: prevData?.showTablebaseArrows || prop(root.tableBaseArrowsProp()),
+      maxTablebaseLines: prevData?.maxTablebaseLines || prop(5), // default 5 lines
     };
   }
 
@@ -208,6 +213,27 @@ const masterDb = (ctrl: ExplorerConfigCtrl) =>
       h('label', [
         i18n.site.until,
         yearInput(ctrl.data.byDb().until, ctrl.data.byDb().since, ctrl.root.redraw),
+      ]),
+      h('section.toggles', [
+        h('label', [
+          'Max tablebase lines',
+          h('input', {
+            attrs: {
+              type: 'range',
+              min: 1,
+              max: 10,
+              step: 1,
+            },
+            props: { value: ctrl.data.maxTablebaseLines() },
+            hook: rangeConfig(
+              () => ctrl.data.maxTablebaseLines(),
+              (v: number) => {
+                ctrl.data.maxTablebaseLines(v);
+              },
+            ),
+          }),
+          h('span', ` ${ctrl.data.maxTablebaseLines()}`),
+        ]),
       ]),
     ]),
   ]);
